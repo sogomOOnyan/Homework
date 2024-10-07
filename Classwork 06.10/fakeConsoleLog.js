@@ -1,1 +1,0 @@
-//que joga para yuri alberto
