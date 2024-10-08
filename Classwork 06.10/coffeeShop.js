@@ -5,8 +5,6 @@ class CoffeeShop {
     this.orders = [];
   }
 
-  /*******************************************************/
-
   addOrder(order) {
     const menuItem = this.menu.find(({ name }) => name === `${order}`);
     if (menuItem) {
@@ -15,8 +13,6 @@ class CoffeeShop {
     }
     return `Item ${order} is unavailable`;
   }
-
-  /*******************************************************/
 
   cheapestItem() {
     const cheapest = this.menu.reduce(
@@ -29,24 +25,18 @@ class CoffeeShop {
     return cheapest.name;
   }
 
-  /*******************************************************/
-
   dueAmount() {
     return this.orders.reduce((total, { price }) => total + price, 0);
   }
-  /*******************************************************/
 
   drinksOnly() {
     return this.menu.filter((order) => order.type === "drink");
   }
 
-  /*******************************************************/
 
   foodOnly() {
     return this.menu.filter((order) => order.type === "food");
   }
-
-  /*******************************************************/
 
   fulfillOrder() {
     if (this.orders.length > 0) {
@@ -55,8 +45,6 @@ class CoffeeShop {
       return `The ${readyOrder.name} is ready!`;
     } else return "All orders have been fulfilled";
   }
-
-  /*******************************************************/
 
   listOrders() {
     return this.orders;
@@ -83,8 +71,4 @@ console.log(tcs.addOrder("chupachups"));
 console.log(tcs.listOrders());
 console.log(tcs.cheapestItem());
 console.log(tcs.dueAmount());
-console.log(tcs.fulfillOrder());
-console.log(tcs.fulfillOrder());
-console.log(tcs.fulfillOrder());
-console.log(tcs.foodOnly());
-console.log(tcs.drinksOnly());
+
