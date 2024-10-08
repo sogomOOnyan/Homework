@@ -7,41 +7,32 @@ class CoffeeShop{
 
 /*******************************************************/
 
-    addOrder(order){
-        for(let i = 0; i < this.menu.length;  i++){
-            if(this.menu[i]['name'] === order){
-                this.orders.push(this.menu[i])
-                console.log(this.menu[i]['name']);
-                return `${order} has been added to the list`, this.orders;        
-            } 
-        }
-    return `Item ${order} is unavailable`
+    addOrder(order){  
+    const menuItem = this.menu.find(({name}) => name === `${order}`);
+    if(menuItem) {
+        this.orders.push(menuItem);
+        return `${order} has been added to the list`
+
     }
+    return `Item ${order} is unavailable`
+}
+
 
 /*******************************************************/
 
     cheapestItem(){
-        let minPrice = Infinity;
-        let cheapestItem = '';
-        for(let i = 0; i < this.menu.length; i++){
-            if(this.menu[i]['price'] < minPrice){
-                minPrice = this.menu[i]['price'];
-                cheapestItem = this.menu[i]['name'];
-            }
-        }
-        return cheapestItem;
+        const cheapest = this.menu.reduce((min, item) =>{
+            const {price, name} = item
+            return price < min.price ? item : min
+        },{price: Infinity});
+        return cheapest.name;
     }
 
     /*******************************************************/
 
     dueAmount(){
-        let total = 0;
-        for(let i = 0; i < this.orders.length; i++){
-            total += this.orders[i].price       
-        }
-    return total;
+        return  this.orders.reduce((total, {price}) => total + price, 0);
     }
-    
     /*******************************************************/
 
     drinksOnly(){
@@ -78,17 +69,21 @@ const tcsMenu = [
     {name: 'Salad', price: 4.99, type: 'food'},
     {name: 'Water', price: 0.99, type: 'drink'},
     {name: 'Iced Coffee',  price: 2.49, type: 'drink'},
+    {name: 'Green tea', price:  1.99, type: 'drink'},
+    {name: 'Cappuccino',  price: 3.99, type: 'drink'},
+    {name: 'Cheesecake',  price: 5.99, type: 'food'},
 ]
 
 let tcs = new CoffeeShop('Smbati mot',  tcsMenu)
 
-// console.log(tcs.addOrder('Soda'));
-// console.log(tcs.addOrder('Fries'));
-// console.log(tcs.addOrder('chupachups'));
-// console.log(tcs.listOrders());
-// console.log(tcs.dueAmount())
-// console.log(tcs.fulfillOrder());
-// console.log(tcs.fulfillOrder());
-// console.log(tcs.fulfillOrder());
-// console.log(tcs.foodOnly());
-// console.log(tcs.drinksOnly());
+console.log(tcs.addOrder('Soda'));
+console.log(tcs.addOrder('Fries'));
+console.log(tcs.addOrder('chupachups'));
+console.log(tcs.listOrders());
+console.log(tcs.cheapestItem());
+console.log(tcs.dueAmount())
+console.log(tcs.fulfillOrder());
+console.log(tcs.fulfillOrder());
+console.log(tcs.fulfillOrder());
+console.log(tcs.foodOnly());
+console.log(tcs.drinksOnly());
